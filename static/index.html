@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Score Predictor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f5f1;
+            color: #1e3328;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #174c36;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 25px;
+        }
+
+        header span {
+            color: #d6f578;
+        }
+
+        .hero {
+            padding: 55px 20px 35px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #28734f;
+        }
+
+        .hero p {
+            color: #68796e;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+            font-size: 23px;
+        }
+
+        .subtitle {
+            color: #7b8980;
+            font-size: 13px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .value {
+            color: #28734f;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #28734f;
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #98a49c;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dce5de;
+            border-radius: 9px;
+            background: #fbfcfb;
+            font-size: 14px;
+            color: #24372c;
+            outline-color: #28734f;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #216444;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #174c36;
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .result-card {
+            background: #e3efdf;
+            border: 1px solid #d4e5ce;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge {
+            display: inline-block;
+            background: white;
+            color: #28734f;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            align-self: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .result-card h2 {
+            font-size: 26px;
+        }
+
+        .result-description {
+            color: #6d7f70;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 8px 0 30px;
+        }
+
+        .score {
+            font-size: 68px;
+            font-weight: bold;
+            color: #216444;
+            letter-spacing: -3px;
+            overflow-wrap: anywhere;
+        }
+
+        .score small {
+            font-size: 22px;
+            color: #819482;
+            letter-spacing: 0;
+        }
+
+        .score-caption {
+            color: #758779;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .progress {
+            height: 9px;
+            background: #cfdfc9;
+            border-radius: 20px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: #28734f;
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+
+        .message {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .error {
+            color: #a32929;
+        }
+
+        footer {
+            text-align: center;
+            color: #89968d;
+            padding: 0 20px 25px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Exam<span>Score.</span></h2>
+    <div>Student Performance Predictor</div>
+</header>
+
+<section class="hero">
+    <h1>Predict Your <span>Exam Score</span></h1>
+    <p>
+        Understand your study habits and estimate your academic performance.<br>
+        Enter your details below to get your prediction.
+    </p>
+</section>
+
+<main class="container">
+
+    <!-- INPUT FORM -->
+    <section class="card">
+        <h2>Student Details</h2>
+        <p class="subtitle">
+            Enter your study routine, attendance, and sleep information.
+        </p>
+
+        <form id="predictionForm">
+
+            <div class="form-group">
+                <label for="study_hours">
+                    Study Hours
+                    <span class="value" id="studyValue">4 hours</span>
+                </label>
+
+                <input
+                    type="range"
+                    id="study_hours"
+                    min="1"
+                    max="24"
+                    step="0.5"
+                    value="4"
+                >
+
+                <div class="range-labels">
+                    <span>1 hour</span>
+                    <span>24 hours</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="class_attendance">
+                    Class Attendance
+                    <span class="value" id="attendanceValue">85%</span>
+                </label>
+
+                <input
+                    type="range"
+                    id="class_attendance"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="85"
+                >
+
+                <div class="range-labels">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sleep_hours">
+                    Sleep Hours
+                    <span class="value" id="sleepValue">8 hours</span>
+                </label>
+
+                <input
+                    type="range"
+                    id="sleep_hours"
+                    min="3"
+                    max="24"
+                    step="0.5"
+                    value="8"
+                >
+
+                <div class="range-labels">
+                    <span>3 hours</span>
+                    <span>24 hours</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sleep_quality">Sleep Quality</label>
+
+                <select id="sleep_quality">
+                    <option value="poor">Poor</option>
+                    <option value="average" selected>Average</option>
+                    <option value="good">Good</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="study_method">Study Method</label>
+
+                <select id="study_method">
+                    <option value="self-study">Self-study</option>
+                    <option value="group-study">Group Study</option>
+                    <option value="coaching">Coaching</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="online videos">Online Videos</option>
+                </select>
+            </div>
+
+            <button type="submit" id="predictButton">
+                Predict My Score →
+            </button>
+
+            <p class="message" id="status" role="status" aria-live="polite"></p>
+
+        </form>
+    </section>
+
+    <!-- RESULT CARD -->
+    <section class="card result-card">
+
+        <div class="badge">✦ AI Score Prediction</div>
+
+        <h2 id="resultTitle">Your Result Awaits!</h2>
+
+        <p class="result-description" id="resultDescription">
+            Complete the student details and click the button to see your
+            predicted exam score.
+        </p>
+
+        <div class="score" id="predictedScore">
+            --<small> / 100</small>
+        </div>
+
+        <p class="score-caption">Predicted Exam Score</p>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <p id="scoreMessage" class="message">
+            Your prediction will appear here.
+        </p>
+
+    </section>
+
+</main>
+
+<footer>
+    ExamScore Predictor | Built with FastAPI and Machine Learning
+</footer>
+
+<script>
+    const studyHours = document.getElementById("study_hours");
+    const attendance = document.getElementById("class_attendance");
+    const sleepHours = document.getElementById("sleep_hours");
+
+    studyHours.addEventListener("input", function () {
+        document.getElementById("studyValue").textContent =
+            this.value + " hours";
+    });
+
+    attendance.addEventListener("input", function () {
+        document.getElementById("attendanceValue").textContent =
+            this.value + "%";
+    });
+
+    sleepHours.addEventListener("input", function () {
+        document.getElementById("sleepValue").textContent =
+            this.value + " hours";
+    });
+
+    document.getElementById("predictionForm").addEventListener(
+        "submit",
+        async function (event) {
+            event.preventDefault();
+
+            const button = document.getElementById("predictButton");
+            const status = document.getElementById("status");
+
+            button.disabled = true;
+            button.textContent = "Predicting...";
+            status.textContent = "";
+            status.className = "message";
+
+            const data = {
+                study_hours: Number(studyHours.value),
+                class_attendance: Number(attendance.value),
+                sleep_hours: Number(sleepHours.value),
+                sleep_quality:
+                    document.getElementById("sleep_quality").value,
+                study_method:
+                    document.getElementById("study_method").value
+            };
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    let detail = result.detail || "Prediction failed";
+
+                    if (Array.isArray(detail)) {
+                        detail = detail.map(item => item.msg).join(", ");
+                    }
+
+                    throw new Error(detail);
+                }
+
+                const score = Number(result.predicted_score);
+
+                if (!Number.isFinite(score)) {
+                    throw new Error("The API returned an invalid score.");
+                }
+
+                document.getElementById("predictedScore").innerHTML =
+                    `${score.toFixed(2)}<small> / 100</small>`;
+
+                document.getElementById("resultTitle").textContent =
+                    "Prediction Complete!";
+
+                document.getElementById("resultDescription").textContent =
+                    "Your exam score has been predicted using your student details.";
+
+                document.getElementById("progressBar").style.width =
+                    Math.max(0, Math.min(100, score)) + "%";
+
+                document.getElementById("scoreMessage").textContent =
+                    "Keep studying consistently and use this estimate to help plan your preparation.";
+
+                status.textContent = "Prediction generated successfully!";
+
+            } catch (error) {
+                status.textContent =
+                    "Error: " + error.message +
+                    ". Check your FastAPI server and model input categories.";
+
+                status.className = "message error";
+
+            } finally {
+                button.disabled = false;
+                button.textContent = "Predict My Score →";
+            }
+        }
+    );
+</script>
+
+</body>
+</html>
