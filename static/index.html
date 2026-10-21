@@ -3,603 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#102a24">
-
-    <title>ExamScore — Student Performance Predictor</title>
+    <title>Exam Score Predictor</title>
 
     <style>
-        :root {
-            --ink: #172b25;
-            --muted: #718078;
-            --green: #176b4b;
-            --green-dark: #104d38;
-            --lime: #d9fb83;
-            --line: #e4ebe6;
-            --surface: #ffffff;
-            --bg: #f5f8f5;
-            --radius: 22px;
-            --shadow: 0 18px 55px rgba(24, 55, 42, 0.08);
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
+            background: #f3f7f4;
+            color: #193b2a;
             min-height: 100vh;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", sans-serif;
-            color: var(--ink);
-            background:
-                radial-gradient(
-                    ellipse at 85% 5%,
-                    rgba(217, 251, 131, 0.22),
-                    transparent 32%
-                ),
-                var(--bg);
-            line-height: 1.5;
         }
 
-        button,
-        input,
-        select {
-            font: inherit;
-        }
-
-        button,
-        select,
-        input[type="range"] {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* HEADER */
-
-        .topbar {
-            width: 100%;
-            background: #102a24;
+        header {
+            background: #164b35;
             color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav {
-            max-width: 1180px;
-            margin: auto;
-            padding: 18px 28px;
+            padding: 22px 8%;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 18px;
-        }
-
-        .brand {
-            display: inline-flex;
             align-items: center;
-            gap: 11px;
-            font-size: 1.3rem;
-            font-weight: 850;
-            letter-spacing: -0.7px;
+            gap: 15px;
         }
 
-        .brand-mark {
-            display: grid;
-            place-items: center;
-            width: 37px;
-            height: 37px;
-            border-radius: 12px;
-            background: var(--lime);
-            color: #163d2c;
-            font-size: 1.15rem;
+        header h1 {
+            font-size: 24px;
         }
 
-        .brand-highlight {
-            color: var(--lime);
+        header span {
+            font-size: 14px;
+            color: #d5eadb;
         }
-
-        .nav-note {
-            color: #c5d4cd;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background: var(--lime);
-            box-shadow: 0 0 0 4px rgba(217, 251, 131, 0.12);
-        }
-
-        /* HERO SECTION */
 
         .hero {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 64px 28px 40px;
             text-align: center;
+            padding: 40px 20px 25px;
         }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 12px;
-            border: 1px solid #dce9dc;
-            background: rgba(255, 255, 255, 0.78);
-            color: var(--green);
-            border-radius: 999px;
-            font-size: 0.76rem;
-            font-weight: 800;
-            letter-spacing: 0.07em;
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
-            margin: 19px auto 13px;
-            max-width: 800px;
-            font-size: clamp(2.2rem, 5vw, 4rem);
-            line-height: 1.07;
-            letter-spacing: -0.055em;
-            font-weight: 850;
-        }
-
-        .hero h1 span {
-            color: var(--green);
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
         .hero p {
-            max-width: 610px;
-            margin: 0 auto;
-            color: var(--muted);
-            font-size: clamp(0.95rem, 1.7vw, 1.08rem);
+            color: #64776b;
+            line-height: 1.6;
         }
 
-        /* MAIN LAYOUT */
-
         .container {
-            width: min(1120px, calc(100% - 56px));
-            margin: 0 auto 64px;
-            display: grid;
-            grid-template-columns:
-                minmax(0, 1.03fr)
-                minmax(0, 0.97fr);
-            gap: 24px;
-            align-items: stretch;
+            width: 90%;
+            max-width: 850px;
+            margin: 0 auto 50px;
         }
 
         .card {
-            min-width: 0;
-            padding: clamp(22px, 3vw, 34px);
-            border: 1px solid rgba(223, 233, 225, 0.95);
-            border-radius: var(--radius);
-            background: var(--surface);
-            box-shadow: var(--shadow);
+            background: white;
+            padding: 28px;
+            margin-bottom: 22px;
+            border-radius: 18px;
+            box-shadow: 0 5px 22px rgba(20, 60, 40, 0.07);
         }
 
-        .card-heading {
-            display: flex;
-            align-items: flex-start;
-            gap: 13px;
-            margin-bottom: 27px;
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 24px;
         }
-
-        .heading-icon {
-            flex: 0 0 45px;
-            width: 45px;
-            height: 45px;
-            display: grid;
-            place-items: center;
-            border-radius: 14px;
-            background: #eaf5e9;
-            color: var(--green);
-            font-size: 1.25rem;
-        }
-
-        .card h2 {
-            font-size: 1.28rem;
-            line-height: 1.3;
-            letter-spacing: -0.025em;
-        }
-
-        .subtitle {
-            color: var(--muted);
-            font-size: 0.88rem;
-            margin-top: 5px;
-        }
-
-        /* FORM */
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        label {
+        .label-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 14px;
-            font-size: 0.91rem;
-            font-weight: 750;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .label-row label {
+            font-weight: 600;
         }
 
         .value {
-            flex: 0 0 auto;
-            color: var(--green);
-            background: #edf7ec;
-            border-radius: 9px;
-            padding: 5px 9px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
+            color: #16804c;
+            font-weight: bold;
+            text-align: right;
         }
 
         input[type="range"] {
-            display: block;
             width: 100%;
-            height: 7px;
-            accent-color: var(--green);
+            accent-color: #16804c;
             cursor: pointer;
+            margin: 10px 0;
         }
 
-        input[type="range"]:focus-visible,
-        select:focus-visible,
-        button:focus-visible {
-            outline: 3px solid #9cdbad;
-            outline-offset: 3px;
+        input[type="range"]:disabled {
+            cursor: not-allowed;
+            opacity: 0.35;
         }
 
         .range-labels {
             display: flex;
             justify-content: space-between;
-            gap: 12px;
-            margin-top: 10px;
-            color: #8b9890;
-            font-size: 0.73rem;
+            color: #829087;
+            font-size: 12px;
+        }
+
+        .select-btn {
+            margin-top: 12px;
+            padding: 10px 15px;
+            border: 1px solid #16804c;
+            border-radius: 8px;
+            background: white;
+            color: #16804c;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .select-btn:hover {
+            background: #eaf5ed;
+        }
+
+        .select-btn.selected {
+            background: #eaf5ed;
         }
 
         select {
             width: 100%;
-            min-height: 49px;
-            padding: 12px 14px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: #fbfdfb;
-            color: var(--ink);
-            outline-color: var(--green);
-            cursor: pointer;
+            padding: 13px;
+            margin-top: 10px;
+            border: 1px solid #d5e1d8;
+            border-radius: 9px;
+            background: white;
+            color: #193b2a;
+            font-size: 15px;
         }
 
-        select:hover {
-            border-color: #b7d1bd;
+        .form-group select {
+            margin-bottom: 5px;
         }
-
-        /* BUTTON */
 
         .primary-btn {
             width: 100%;
-            min-height: 54px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 0;
-            border-radius: 13px;
-            padding: 15px 18px;
-            background: linear-gradient(135deg, #1a7652, #12563d);
+            padding: 15px;
+            background: #16804c;
             color: white;
-            font-weight: 800;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 9px 20px rgba(23, 107, 75, 0.18);
-            transition:
-                transform 0.2s,
-                box-shadow 0.2s,
-                opacity 0.2s;
+            transition: background 0.2s;
         }
 
         .primary-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 13px 25px rgba(23, 107, 75, 0.23);
-        }
-
-        .primary-btn:active {
-            transform: translateY(0);
+            background: #10643a;
         }
 
         .primary-btn:disabled {
-            opacity: 0.7;
+            opacity: 0.6;
             cursor: wait;
-            transform: none;
         }
-
-        /* STATUS MESSAGES */
 
         .message {
-            min-height: 0;
-            margin-top: 12px;
-            font-size: 0.82rem;
-            line-height: 1.6;
-            overflow-wrap: anywhere;
-        }
-
-        .message:empty {
-            display: none;
-        }
-
-        .success {
-            color: var(--green);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 15px;
+            color: #64776b;
         }
 
         .error {
-            color: #b42318;
+            color: #c0392b;
         }
 
-        /* RESULT CARD */
-
-        .result-card {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-            background: linear-gradient(
-                145deg,
-                #f0f8e9 0%,
-                #e2f0df 62%,
-                #d9ebd7 100%
-            );
-            border-color: #d8e8d3;
+        .result {
+            display: none;
+            text-align: center;
+            animation: appear 0.5s ease;
         }
 
-        .result-card::after {
-            content: "";
-            position: absolute;
-            width: 230px;
-            height: 230px;
-            right: -100px;
-            top: -100px;
-            border-radius: 50%;
-            border: 1px solid rgba(23, 107, 75, 0.12);
-            box-shadow:
-                0 0 0 25px rgba(23, 107, 75, 0.035),
-                0 0 0 50px rgba(23, 107, 75, 0.025);
-            pointer-events: none;
-        }
-
-        .result-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            align-self: flex-start;
-            padding: 8px 12px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(23, 107, 75, 0.1);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.82);
-            color: var(--green);
-            font-size: 0.76rem;
-            font-weight: 800;
-        }
-
-        .result-card h2 {
-            font-size: clamp(1.5rem, 2.7vw, 2rem);
-            letter-spacing: -0.04em;
-        }
-
-        .result-description {
-            max-width: 390px;
-            margin: 9px 0 32px;
-            color: #667c6b;
-            font-size: 0.91rem;
-            line-height: 1.7;
-        }
-
-        /* SCORE DISPLAY */
-
-        .score-wrap {
-            padding: 23px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.58);
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .score {
-            font-size: clamp(3.5rem, 7vw, 5.25rem);
-            line-height: 1.05;
-            font-weight: 850;
-            letter-spacing: -0.07em;
-            color: var(--green-dark);
-            overflow-wrap: anywhere;
-            font-variant-numeric: tabular-nums;
+            font-size: 65px;
+            font-weight: bold;
+            color: #16804c;
+            margin: 20px 0 10px;
         }
 
         .score small {
-            font-size: clamp(1rem, 2.3vw, 1.35rem);
-            color: #809485;
-            font-weight: 650;
-            letter-spacing: -0.02em;
+            font-size: 22px;
+            color: #829087;
         }
 
-        .score-caption {
-            margin-top: 9px;
-            color: #708474;
-            font-size: 0.82rem;
-            font-weight: 650;
-        }
-
-        .progress-meta {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 25px;
-            color: #718575;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .progress {
-            height: 10px;
-            margin-top: 9px;
-            border-radius: 99px;
-            background: rgba(29, 95, 61, 0.13);
+        .progress-track {
+            height: 12px;
+            background: #e6eee8;
+            border-radius: 20px;
             overflow: hidden;
+            margin: 20px 0;
         }
 
-        .progress-bar {
-            width: 0;
+        .progress-fill {
             height: 100%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, #2c8c5b, #176b4b);
-            transition: width 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            width: 0;
+            background: #16804c;
+            border-radius: 20px;
+            transition: width 0.8s ease;
         }
 
-        .result-note {
-            margin-top: auto;
-            padding-top: 27px;
-            color: #5d7663;
-            font-size: 0.83rem;
-            line-height: 1.65;
+        .result p {
+            line-height: 1.6;
         }
 
-        .result-note strong {
-            color: #275c3d;
+        .reset-btn {
+            margin-top: 20px;
+            padding: 11px 18px;
+            border: 1px solid #ccdacf;
+            border-radius: 8px;
+            background: white;
+            color: #193b2a;
+            cursor: pointer;
         }
 
-        /* FOOTER */
-
-        footer {
-            padding: 0 24px 28px;
+        .footer {
             text-align: center;
-            color: #8a978f;
-            font-size: 0.78rem;
+            padding: 20px;
+            color: #829087;
+            font-size: 13px;
         }
 
-        footer span {
-            color: var(--green);
-            font-weight: 750;
+        [hidden] {
+            display: none !important;
         }
 
-        /* TABLETS */
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 5%;
+            }
 
-        @media (max-width: 820px) {
-            .hero {
-                padding-top: 48px;
+            header h1 {
+                font-size: 19px;
+            }
+
+            header span {
+                font-size: 12px;
+            }
+
+            .hero h2 {
+                font-size: 26px;
             }
 
             .container {
-                grid-template-columns: minmax(0, 1fr);
-                max-width: 650px;
-            }
-
-            .result-card {
-                min-height: 430px;
-            }
-
-            .result-description {
-                max-width: 520px;
-            }
-
-            .score {
-                font-size: clamp(3.8rem, 12vw, 5rem);
-            }
-        }
-
-        /* MOBILE PHONES */
-
-        @media (max-width: 520px) {
-            .nav {
-                padding: 14px 18px;
-            }
-
-            .brand {
-                font-size: 1.12rem;
-            }
-
-            .brand-mark {
-                width: 34px;
-                height: 34px;
-            }
-
-            .nav-note {
-                max-width: 125px;
-                font-size: 0.7rem;
-                line-height: 1.35;
-                text-align: right;
-            }
-
-            .hero {
-                padding: 42px 20px 29px;
-            }
-
-            .hero h1 {
-                font-size: clamp(2.15rem, 10vw, 3rem);
-            }
-
-            .hero p br {
-                display: none;
-            }
-
-            .container {
-                width: calc(100% - 28px);
-                gap: 16px;
-                margin-bottom: 40px;
+                width: 92%;
             }
 
             .card {
-                padding: 22px 19px;
-                border-radius: 18px;
+                padding: 21px;
             }
 
-            .card-heading {
-                margin-bottom: 24px;
-            }
-
-            .form-group {
-                margin-bottom: 23px;
-            }
-
-            .result-card {
-                min-height: 400px;
-            }
-
-            .badge {
-                margin-bottom: 24px;
-            }
-
-            .score-wrap {
-                padding: 20px 16px;
-            }
-
-            footer {
-                padding-bottom: 22px;
-            }
-        }
-
-        /* ACCESSIBILITY */
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
+            .score {
+                font-size: 52px;
             }
         }
     </style>
@@ -607,439 +284,428 @@
 
 <body>
 
-    <!-- HEADER -->
-    <header class="topbar">
-        <nav class="nav" aria-label="Main navigation">
+<header>
+    <h1>📚 ExamPredict</h1>
+    <span>Smart Study Assistant</span>
+</header>
 
-            <div class="brand">
-                <span class="brand-mark" aria-hidden="true">✦</span>
-                <span>Exam<span class="brand-highlight">Score.</span></span>
+<section class="hero">
+    <h2>Predict Your Exam Score 🎯</h2>
+    <p>
+        Enter your study habits and discover your estimated exam score.
+        <br>
+        Select a value for each slider to get started.
+    </p>
+</section>
+
+<main class="container">
+
+    <section class="card">
+        <h3>Enter Your Study Details</h3>
+
+        <!-- STUDY HOURS -->
+        <div class="form-group">
+            <div class="label-row">
+                <label for="studyHours">📖 Study Time Per Day</label>
+                <span class="value" id="studyHoursValue">
+                    Not selected
+                </span>
             </div>
 
-            <div class="nav-note">
-                <span class="status-dot" aria-hidden="true"></span>
-                Student Performance Predictor
+            <input
+                type="range"
+                id="studyHours"
+                min="0"
+                max="12"
+                step="0.5"
+                value="4"
+                disabled
+            >
+
+            <div class="range-labels">
+                <span>0 hours</span>
+                <span>12 hours</span>
             </div>
 
-        </nav>
-    </header>
+            <button
+                type="button"
+                class="select-btn"
+                id="studyHoursButton"
+            >
+                Select Study Time
+            </button>
+        </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
+        <!-- CLASS ATTENDANCE -->
+        <div class="form-group">
+            <div class="label-row">
+                <label for="attendance">🏫 Class Attendance</label>
+                <span class="value" id="attendanceValue">
+                    Not selected
+                </span>
+            </div>
 
-        <span class="eyebrow">✦ Your study journey, smarter</span>
+            <input
+                type="range"
+                id="attendance"
+                min="0"
+                max="100"
+                step="5"
+                value="50"
+                disabled
+            >
 
-        <h1>
-            Make your next exam<br>
-            your <span>best one yet.</span>
-        </h1>
+            <div class="range-labels">
+                <span>0%</span>
+                <span>100%</span>
+            </div>
 
-        <p>
-            Explore how your study routine, attendance, and sleep habits
-            may influence your performance. Adjust your details to get started.
+            <button
+                type="button"
+                class="select-btn"
+                id="attendanceButton"
+            >
+                Select Attendance
+            </button>
+        </div>
+
+        <!-- SLEEP HOURS -->
+        <div class="form-group">
+            <div class="label-row">
+                <label for="sleepHours">😴 Sleep Per Night</label>
+                <span class="value" id="sleepHoursValue">
+                    Not selected
+                </span>
+            </div>
+
+            <input
+                type="range"
+                id="sleepHours"
+                min="3"
+                max="12"
+                step="0.5"
+                value="7"
+                disabled
+            >
+
+            <div class="range-labels">
+                <span>3 hours</span>
+                <span>12 hours</span>
+            </div>
+
+            <button
+                type="button"
+                class="select-btn"
+                id="sleepHoursButton"
+            >
+                Select Sleep Time
+            </button>
+        </div>
+
+        <!-- SLEEP QUALITY -->
+        <div class="form-group">
+            <label for="sleepQuality">
+                Sleep Quality
+            </label>
+
+            <select id="sleepQuality">
+                <option value="">-- Select Sleep Quality --</option>
+                <option value="Poor">Poor</option>
+                <option value="Average">Average</option>
+                <option value="Good">Good</option>
+            </select>
+        </div>
+
+        <!-- STUDY METHOD -->
+        <div class="form-group">
+            <label for="studyMethod">
+                Preferred Study Method
+            </label>
+
+            <select id="studyMethod">
+                <option value="">-- Select Study Method --</option>
+                <option value="Self Study">Self Study</option>
+                <option value="Online Videos">Online Videos</option>
+                <option value="Group Study">Group Study</option>
+                <option value="Tutoring">Tutoring</option>
+            </select>
+        </div>
+
+        <button type="button" class="primary-btn" id="predictButton">
+            Predict My Score
+        </button>
+
+        <p class="message" id="message" role="status" aria-live="polite">
+            Please select all three slider values and both dropdown options.
         </p>
-
     </section>
 
-    <!-- MAIN CONTENT -->
-    <main class="container">
+    <!-- PREDICTION RESULT -->
+    <section class="card result" id="resultCard" aria-live="polite">
+        <h3>Your Predicted Exam Score</h3>
 
-        <!-- STUDENT FORM -->
-        <section class="card" aria-labelledby="detailsTitle">
+        <div class="score">
+            <span id="scoreValue">0</span><small>/100</small>
+        </div>
 
-            <div class="card-heading">
+        <h3 id="scoreMessage"></h3>
 
-                <div class="heading-icon" aria-hidden="true">▤</div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
 
-                <div>
-                    <h2 id="detailsTitle">Your study profile</h2>
-                    <p class="subtitle">
-                        Tell us a little about your routine.
-                    </p>
-                </div>
+        <p id="advice"></p>
 
-            </div>
+        <button type="button" class="reset-btn" id="resetButton">
+            ↺ Start Again
+        </button>
 
-            <form id="predictionForm">
+        <p class="message">
+            Demo mode: This score uses an illustrative formula,
+            not a trained machine-learning model.
+        </p>
+    </section>
 
-                <!-- STUDY HOURS -->
-                <div class="form-group">
+</main>
 
-                    <label for="study_hours">
-                        Daily study hours
-                        <span class="value" id="studyValue">4 hours</span>
-                    </label>
+<footer class="footer">
+    ExamPredict © 2026 | Study Smarter, Achieve More
+</footer>
 
-                    <input
-                        type="range"
-                        id="study_hours"
-                        name="study_hours"
-                        min="1"
-                        max="24"
-                        step="0.5"
-                        value="4"
-                    >
+<script>
+    // Track whether users have explicitly selected slider values.
+    const selected = {
+        studyHours: false,
+        attendance: false,
+        sleepHours: false
+    };
 
-                    <div class="range-labels">
-                        <span>1 hour</span>
-                        <span>24 hours</span>
-                    </div>
+    const sliders = [
+        {
+            id: "studyHours",
+            buttonId: "studyHoursButton",
+            labelId: "studyHoursValue",
+            buttonText: "Select Study Time",
+            format: value => value + " hours"
+        },
+        {
+            id: "attendance",
+            buttonId: "attendanceButton",
+            labelId: "attendanceValue",
+            buttonText: "Select Attendance",
+            format: value => value + "%"
+        },
+        {
+            id: "sleepHours",
+            buttonId: "sleepHoursButton",
+            labelId: "sleepHoursValue",
+            buttonText: "Select Sleep Time",
+            format: value => value + " hours"
+        }
+    ];
 
-                </div>
+    // Initially, all sliders are disabled and unselected.
+    sliders.forEach(item => {
+        const slider = document.getElementById(item.id);
+        const button = document.getElementById(item.buttonId);
+        const label = document.getElementById(item.labelId);
 
-                <!-- ATTENDANCE -->
-                <div class="form-group">
+        slider.disabled = true;
 
-                    <label for="class_attendance">
-                        Class attendance
-                        <span class="value" id="attendanceValue">85%</span>
-                    </label>
+        button.addEventListener("click", () => {
+            selected[item.id] = true;
+            slider.disabled = false;
 
-                    <input
-                        type="range"
-                        id="class_attendance"
-                        name="class_attendance"
-                        min="0"
-                        max="100"
-                        step="1"
-                        value="85"
-                    >
+            label.textContent = item.format(slider.value);
+            button.textContent = "✓ Value Selection Enabled";
+            button.classList.add("selected");
 
-                    <div class="range-labels">
-                        <span>0%</span>
-                        <span>100%</span>
-                    </div>
+            document.getElementById("message").textContent =
+                "Move the slider to choose your value.";
 
-                </div>
-
-                <!-- SLEEP HOURS -->
-                <div class="form-group">
-
-                    <label for="sleep_hours">
-                        Daily sleep hours
-                        <span class="value" id="sleepValue">8 hours</span>
-                    </label>
-
-                    <input
-                        type="range"
-                        id="sleep_hours"
-                        name="sleep_hours"
-                        min="3"
-                        max="24"
-                        step="0.5"
-                        value="8"
-                    >
-
-                    <div class="range-labels">
-                        <span>3 hours</span>
-                        <span>24 hours</span>
-                    </div>
-
-                </div>
-
-                <!-- SLEEP QUALITY -->
-                <div class="form-group">
-
-                    <label for="sleep_quality">
-                        Sleep quality
-                    </label>
-
-                    <select id="sleep_quality" name="sleep_quality">
-                        <option value="poor">Poor</option>
-                        <option value="average" selected>Average</option>
-                        <option value="good">Good</option>
-                    </select>
-
-                </div>
-
-                <!-- STUDY METHOD -->
-                <div class="form-group">
-
-                    <label for="study_method">
-                        Preferred study method
-                    </label>
-
-                    <select id="study_method" name="study_method">
-                        <option value="self-study">Self-study</option>
-                        <option value="group-study">Group Study</option>
-                        <option value="coaching">Coaching</option>
-                        <option value="mixed">Mixed</option>
-                        <option value="online videos">Online Videos</option>
-                    </select>
-
-                </div>
-
-                <!-- SUBMIT BUTTON -->
-                <button
-                    type="submit"
-                    class="primary-btn"
-                    id="predictButton"
-                >
-                    Predict my score
-                    <span aria-hidden="true">→</span>
-                </button>
-
-                <p
-                    class="message"
-                    id="status"
-                    role="status"
-                    aria-live="polite"
-                ></p>
-
-            </form>
-
-        </section>
-
-        <!-- PREDICTION RESULT -->
-        <section
-            class="card result-card"
-            aria-labelledby="resultTitle"
-            aria-live="polite"
-        >
-
-            <div class="result-content">
-
-                <div class="badge">
-                    <span aria-hidden="true">✧</span>
-                    Your prediction
-                </div>
-
-                <h2 id="resultTitle">
-                    Your result awaits!
-                </h2>
-
-                <p class="result-description" id="resultDescription">
-                    Complete your study profile and select
-                    “Predict my score” to see your estimated result.
-                </p>
-
-                <!-- SCORE -->
-                <div class="score-wrap">
-
-                    <div class="score" id="predictedScore">
-                        --<small> / 100</small>
-                    </div>
-
-                    <p class="score-caption">
-                        Predicted exam score
-                    </p>
-
-                    <!-- PROGRESS -->
-                    <div class="progress-meta">
-                        <span>Score progress</span>
-                        <span id="progressLabel">Awaiting result</span>
-                    </div>
-
-                    <div
-                        class="progress"
-                        role="progressbar"
-                        aria-label="Predicted exam score"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        aria-valuenow="0"
-                        id="progressTrack"
-                    >
-                        <div
-                            class="progress-bar"
-                            id="progressBar"
-                        ></div>
-                    </div>
-
-                </div>
-
-                <p class="result-note" id="scoreMessage">
-                    <strong>Small steps add up.</strong>
-                    Build a consistent routine, get enough rest,
-                    and keep showing up for your goals.
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <span>ExamScore</span> Predictor ·
-        Built with FastAPI and Machine Learning
-    </footer>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        // Get HTML elements
-        const studyHours = document.getElementById("study_hours");
-        const attendance = document.getElementById("class_attendance");
-        const sleepHours = document.getElementById("sleep_hours");
-
-        const button = document.getElementById("predictButton");
-        const status = document.getElementById("status");
-
-        const scoreElement = document.getElementById("predictedScore");
-        const progressBar = document.getElementById("progressBar");
-        const progressTrack = document.getElementById("progressTrack");
-        const progressLabel = document.getElementById("progressLabel");
-
-        // Update study hours display
-        studyHours.addEventListener("input", () => {
-            const hours = Number(studyHours.value);
-
-            document.getElementById("studyValue").textContent =
-                `${studyHours.value} ${hours === 1 ? "hour" : "hours"}`;
+            slider.focus();
         });
 
-        // Update attendance display
-        attendance.addEventListener("input", () => {
-            document.getElementById("attendanceValue").textContent =
-                `${attendance.value}%`;
+        slider.addEventListener("input", () => {
+            label.textContent = item.format(slider.value);
+
+            // Hide old results when the user changes an input.
+            document.getElementById("resultCard").style.display = "none";
         });
+    });
 
-        // Update sleep hours display
-        sleepHours.addEventListener("input", () => {
-            const hours = Number(sleepHours.value);
+    // Predict score when the user clicks the button.
+    document.getElementById("predictButton").addEventListener("click", () => {
+        const message = document.getElementById("message");
 
-            document.getElementById("sleepValue").textContent =
-                `${sleepHours.value} ${hours === 1 ? "hour" : "hours"}`;
-        });
+        const missingSliders = sliders.filter(
+            item => !selected[item.id]
+        );
 
-        // Handle prediction form submission
-        document
-            .getElementById("predictionForm")
-            .addEventListener("submit", async (event) => {
+        const sleepQuality =
+            document.getElementById("sleepQuality").value;
 
-                event.preventDefault();
+        const studyMethod =
+            document.getElementById("studyMethod").value;
 
-                // Prevent duplicate requests
-                button.disabled = true;
-
-                button.innerHTML =
-                    'Calculating prediction <span aria-hidden="true">…</span>';
-
-                status.textContent =
-                    "Connecting to the prediction service...";
-
-                status.className = "message";
-
-                // Collect form data
-                const data = {
-                    study_hours: Number(studyHours.value),
-
-                    class_attendance: Number(attendance.value),
-
-                    sleep_hours: Number(sleepHours.value),
-
-                    sleep_quality:
-                        document.getElementById("sleep_quality").value,
-
-                    study_method:
-                        document.getElementById("study_method").value
-                };
-
-                try {
-
-                    // Send data to FastAPI
-                    const response = await fetch("/predict", {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-
-                        body: JSON.stringify(data)
-                    });
-
-                    // Parse response safely
-                    const result = await response.json().catch(() => ({}));
-
-                    // Handle API errors
-                    if (!response.ok) {
-
-                        let detail = result.detail || "Prediction failed";
-
-                        if (Array.isArray(detail)) {
-                            detail = detail
-                                .map(item => item.msg || "Invalid input")
-                                .join(", ");
-                        }
-
-                        throw new Error(
-                            typeof detail === "string"
-                                ? detail
-                                : JSON.stringify(detail)
-                        );
-                    }
-
-                    // Validate returned score
-                    const score = Number(result.predicted_score);
-
-                    if (!Number.isFinite(score)) {
-                        throw new Error(
-                            "The API returned an invalid score."
-                        );
-                    }
-
-                    // Restrict progress bar to 0–100
-                    const safeScore = Math.max(
-                        0,
-                        Math.min(100, score)
-                    );
-
-                    // Display score
-                    scoreElement.innerHTML =
-                        `${score.toFixed(2)}<small> / 100</small>`;
-
-                    // Update result heading
-                    document.getElementById("resultTitle").textContent =
-                        "Prediction complete!";
-
-                    // Update result description
-                    document.getElementById("resultDescription").textContent =
-                        "Here is your estimated exam score based on the student details you provided.";
-
-                    // Animate progress bar
-                    progressBar.style.width = `${safeScore}%`;
-
-                    progressTrack.setAttribute(
-                        "aria-valuenow",
-                        String(safeScore)
-                    );
-
-                    progressLabel.textContent =
-                        `${safeScore.toFixed(1)}%`;
-
-                    // Update result message
-                    document.getElementById("scoreMessage").innerHTML =
-                        "<strong>Keep building momentum.</strong> " +
-                        "Use this estimate as a guide for your preparation, " +
-                        "not a guarantee of your final result.";
-
-                    // Success message
-                    status.textContent =
-                        "Prediction generated successfully!";
-
-                    status.className = "message success";
-
-                } catch (error) {
-
-                    // Display error
-                    status.textContent =
-                        `Unable to generate a prediction: ${error.message}. ` +
-                        "Check that your FastAPI server is running and " +
-                        "the model accepts these input categories.";
-
-                    status.className = "message error";
-
-                } finally {
-
-                    // Re-enable button
-                    button.disabled = false;
-
-                    button.innerHTML =
-                        'Predict my score <span aria-hidden="true">→</span>';
-                }
-
+        if (
+            missingSliders.length > 0 ||
+            !sleepQuality ||
+            !studyMethod
+        ) {
+            const missing = missingSliders.map(item => {
+                if (item.id === "studyHours") return "study time";
+                if (item.id === "attendance") return "class attendance";
+                return "sleep time";
             });
-    </script>
+
+            if (!sleepQuality) missing.push("sleep quality");
+            if (!studyMethod) missing.push("study method");
+
+            message.textContent =
+                "Please select: " + missing.join(", ") + ".";
+
+            message.classList.add("error");
+            document.getElementById("resultCard").style.display = "none";
+            return;
+        }
+
+        message.classList.remove("error");
+
+        // Get selected values.
+        const hours = Number(
+            document.getElementById("studyHours").value
+        );
+
+        const attendance = Number(
+            document.getElementById("attendance").value
+        );
+
+        const sleep = Number(
+            document.getElementById("sleepHours").value
+        );
+
+        // DEMO FORMULA ONLY.
+        // Replace this section with your actual ML API request.
+        const qualityPoints = {
+            Poor: -5,
+            Average: 0,
+            Good: 5
+        };
+
+        const methodPoints = {
+            "Self Study": 4,
+            "Online Videos": 3,
+            "Group Study": 5,
+            "Tutoring": 6
+        };
+
+        const sleepPoints = Math.max(
+            0,
+            10 - Math.abs(sleep - 8) * 2
+        );
+
+        const rawScore =
+            25 +
+            hours * 4 +
+            attendance * 0.25 +
+            sleepPoints +
+            qualityPoints[sleepQuality] +
+            methodPoints[studyMethod];
+
+        const score = Math.round(
+            Math.max(0, Math.min(100, rawScore))
+        );
+
+        // Display result.
+        document.getElementById("scoreValue").textContent = score;
+
+        const scoreMessage =
+            document.getElementById("scoreMessage");
+
+        if (score >= 85) {
+            scoreMessage.textContent = "Excellent Potential! 🌟";
+        } else if (score >= 70) {
+            scoreMessage.textContent = "Good Progress! 👍";
+        } else if (score >= 50) {
+            scoreMessage.textContent = "Room for Improvement 💪";
+        } else {
+            scoreMessage.textContent = "Keep Practising! 📚";
+        }
+
+        // Animate the score bar.
+        const resultCard = document.getElementById("resultCard");
+        const progressFill = document.getElementById("progressFill");
+
+        resultCard.style.display = "block";
+        progressFill.style.width = "0%";
+
+        requestAnimationFrame(() => {
+            progressFill.style.width = score + "%";
+        });
+
+        // Personalized tip.
+        let advice;
+
+        if (hours < 3) {
+            advice = "Try adding short, focused study sessions to your routine.";
+        } else if (attendance < 75) {
+            advice = "Improving class attendance may help you keep up with lessons.";
+        } else if (sleep < 7) {
+            advice = "Try maintaining a regular sleep schedule and getting enough rest.";
+        } else if (sleepQuality === "Poor") {
+            advice = "Work on your bedtime routine to improve sleep quality.";
+        } else {
+            advice = "Practise past exam questions and review your mistakes regularly.";
+        }
+
+        document.getElementById("advice").textContent = advice;
+
+        message.textContent = "Your demo estimate is ready!";
+        resultCard.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    });
+
+    // Reset the entire form.
+    document.getElementById("resetButton").addEventListener("click", resetForm);
+
+    function resetForm() {
+        sliders.forEach(item => {
+            selected[item.id] = false;
+
+            const slider = document.getElementById(item.id);
+            const button = document.getElementById(item.buttonId);
+            const label = document.getElementById(item.labelId);
+
+            slider.disabled = true;
+            button.textContent = item.buttonText;
+            button.classList.remove("selected");
+            label.textContent = "Not selected";
+        });
+
+        document.getElementById("studyHours").value = 4;
+        document.getElementById("attendance").value = 50;
+        document.getElementById("sleepHours").value = 7;
+
+        document.getElementById("sleepQuality").value = "";
+        document.getElementById("studyMethod").value = "";
+
+        document.getElementById("resultCard").style.display = "none";
+        document.getElementById("progressFill").style.width = "0%";
+
+        const message = document.getElementById("message");
+        message.textContent =
+            "Please select all three slider values and both dropdown options.";
+        message.classList.remove("error");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+</script>
 
 </body>
 </html>
